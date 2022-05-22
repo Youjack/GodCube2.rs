@@ -11,6 +11,10 @@ pub struct Config {
 
 impl Config {
     pub fn new(args: &[String]) -> Result<Config, String> {
+        if args.len() != CUBE2_STATE_LEN+2 {
+            return Err(String::from("Please provide algorithm and 6 initial states."));
+        }
+
         let algo;
         match args[1].as_str() {
             "BFS" => algo = AlgoKind::BFS,
@@ -19,12 +23,8 @@ impl Config {
         }
 
         let mut initial_state = [0 as u8; CUBE2_STATE_LEN];
-        if args.len() != CUBE2_STATE_LEN+2 {
-            return Err(String::from("6 initial states are expected."));
-        } else {
-            for i in 0..CUBE2_STATE_LEN {
-                initial_state[i] = args[i+2].parse::<u8>().unwrap();
-            }
+        for i in 0..CUBE2_STATE_LEN {
+            initial_state[i] = args[i+2].parse::<u8>().unwrap();
         }
 
         Ok(Config { algo, initial_node: Cube2::new(initial_state) })

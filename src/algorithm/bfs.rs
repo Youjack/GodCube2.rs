@@ -12,8 +12,7 @@ pub struct BFSEdge {
 /// 
 /// The current level of nodes own their parent edges
 /// which (as child edges) own their parent edges.
-struct BFSNode<Node>
-{
+struct BFSNode<Node> {
     parent_edge: OptEdge,
     node: Node,
 }
@@ -21,7 +20,7 @@ struct BFSNode<Node>
 /// bidirectional breath-first search with pruning
 pub fn search<Node, Prune>(model_config: ModelConfig<Node>, prune: Prune) -> Result<Path, String>
 where
-    Node: DirectedGraph<Node>,
+    Node: DirectedGraph,
     Prune: Fn(/*edge_idx: */usize, /*opt_edge: */&OptEdge) -> bool,
 {
     if Node::is_eq(&model_config.initial_node, &model_config.target_node) {

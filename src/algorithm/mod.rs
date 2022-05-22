@@ -13,11 +13,11 @@ pub struct ModelConfig<Node> {
     pub edge_num: usize,
 }
 
-pub trait DirectedGraph<Node> {
+pub trait DirectedGraph {
     /// go along edge with index `edge_idx` and return the new node
-    fn go_along(&self, edge_idx: usize) -> Node;
+    fn go_along(&self, edge_idx: usize) -> Self;
 
-    fn is_eq(node1: &Node, node2: &Node) -> bool;
+    fn is_eq(node1: &Self, node2: &Self) -> bool;
 
     fn edge_idx_invert(edge_idx: usize) -> usize;
 }

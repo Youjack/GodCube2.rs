@@ -54,7 +54,7 @@ impl Cube2 {
         }
     }
 }
-impl DirectedGraph<Cube2> for Cube2 {
+impl DirectedGraph for Cube2 {
     fn go_along(&self, trans: usize) -> Cube2 {
         let mut cube2: Cube2 = unsafe { MaybeUninit::uninit().assume_init() };
         for i in 0..CUBE2_STATE_LEN {
