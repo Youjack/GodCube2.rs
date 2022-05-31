@@ -1,6 +1,8 @@
 use crate::algorithm::DirectedGraph;
 use std::mem::MaybeUninit;
 
+pub const GOD_NUMBER2: usize = 11;
+
 // "trans" for transformation
 pub const CUBE2_TRANS_NUM: usize = 9;
 const CUBE2_TRANS_INVERSION: [usize; CUBE2_TRANS_NUM] = [0,2,1,3,5,4,6,8,7];
@@ -42,7 +44,7 @@ impl Cube2 {
     pub fn _print(&self) {
         print!("{}", "[ ");
         for s in self.state {
-            print!("{}, ", s);
+            print!("{} ", s);
         }
         println!("{}", "]");
     }
@@ -78,8 +80,8 @@ mod tests {
 
     #[test]
     fn santa_claus() {
-        let mut cube2 = Cube2::new([0,3,6,9,15,12]);
-        let path = [0,8,1,4,7,3,7,5,8,1,5];
+        let mut cube2 = Cube2::new([0,3,6,9,12,15]);
+        let path = [1,5,2,6,0,3,8];
         for trans in path {
             cube2._trans(trans);
         }

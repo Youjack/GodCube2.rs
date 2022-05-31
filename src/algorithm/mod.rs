@@ -1,6 +1,5 @@
 pub mod bfs;
-
-pub const MAX_DEPTH: u8 = 11;
+pub mod id_astar;
 
 pub enum AlgoKind {
     BFS,
@@ -11,6 +10,7 @@ pub struct ModelConfig<Node> {
     pub initial_node: Node,
     pub target_node: Node,
     pub edge_num: usize,
+    pub max_step: usize,
 }
 
 pub trait DirectedGraph {

@@ -42,12 +42,12 @@ where
         }
     ];
 
-    let mut depth: u8 = 0;
-    while depth < MAX_DEPTH {
+    let mut depth: usize = 0;
+    while depth < model_config.max_step {
         let mut next_level: Vec<BFSNode<Node>> = vec![];
         for bfs_node in curt_level.iter() {
             for edge_idx in 0..model_config.edge_num {
-                // pruning
+                // prune
                 if prune(edge_idx, &bfs_node.parent_edge) { continue; }
                 
                 // get the new node
@@ -108,5 +108,5 @@ where
         opp_level = next_level;
         depth += 1;
     }
-    Err(format!("Cannot find target node within {} steps.", depth))
+    Err(format!("Cannot find target node within {} steps.", model_config.max_step))
 }

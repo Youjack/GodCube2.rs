@@ -2,7 +2,7 @@ mod model;
 use model::*;
 
 mod algorithm;
-use algorithm::{AlgoKind, ModelConfig, Path, bfs};
+use algorithm::{AlgoKind, ModelConfig, Path, bfs, id_astar};
 
 pub struct Config {
     algo: AlgoKind,
@@ -18,7 +18,10 @@ impl Config {
         let algo;
         match args[1].as_str() {
             "BFS" => algo = AlgoKind::BFS,
-            "IDA*" => algo = AlgoKind::IDAStar,
+            "IDA*" => {
+                algo = AlgoKind::IDAStar;
+                // initialize A*
+            },
             _ => return Err(format!("No algorithm \"{}\".", &args[1])),
         }
 
@@ -36,6 +39,7 @@ pub fn run(config: Config) -> Result<Path, String> {
         initial_node: config.initial_node,
         target_node: Cube2::new(SOLVED_CUBE2_STATE),
         edge_num: CUBE2_TRANS_NUM,
+        max_step: GOD_NUMBER2,
     };
     
     match config.algo {
@@ -47,6 +51,16 @@ pub fn run(config: Config) -> Result<Path, String> {
                 return false;
             }
         ),
-        AlgoKind::IDAStar => Err(String::from("Algorithm not implemented yet.")),
+        AlgoKind::IDAStar => id_astar::search(model_config,
+            |edge_idx, nodes| {
+                if let Some(parent_edge_idx) = nodes.last().unwrap().parent_edge_idx {
+                    return edge_idx / 3 == parent_edge_idx / 3;
+                }
+                return false;
+            },
+            |_node| {
+                return 0;
+            }
+        ),
     }
 }
