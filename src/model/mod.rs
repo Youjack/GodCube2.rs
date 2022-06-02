@@ -1,5 +1,7 @@
-use crate::algorithm::DirectedGraph;
+use super::algorithm::DirectedGraph;
 use std::mem::MaybeUninit;
+
+pub mod astar;
 
 pub const GOD_NUMBER2: usize = 11;
 

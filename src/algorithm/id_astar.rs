@@ -50,17 +50,18 @@ where
                                 node: nodes.last().unwrap().node.go_along(edge_idx),
                             }
                         );
+                        let new_node = &nodes.last().unwrap().node;
 
                         // A*, `is_eq`
                         if nodes.len() - 1 < target_depth { // not deep enough
                             // A* not prune
-                            if nodes.len() - 1 + astar(&nodes.last().unwrap().node) <= target_depth {
+                            if nodes.len() - 1 + astar(new_node) <= target_depth {
                                 dfs_state = DFSState::Forward;
                                 break;
                             }
                         } else { // deep enough
                             // `is_eq` not "prune"
-                            if Node::is_eq(&nodes.last().unwrap().node, &model_config.target_node) {
+                            if Node::is_eq(new_node, &model_config.target_node) {
                                 let mut path: Path = vec![];
                                 for node in &nodes {
                                     if let Some(edge_idx) = node.parent_edge_idx {

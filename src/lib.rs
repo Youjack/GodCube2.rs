@@ -2,7 +2,7 @@ mod model;
 use model::*;
 
 mod algorithm;
-use algorithm::{AlgoKind, ModelConfig, Path, bfs, id_astar};
+use algorithm::*;
 
 pub struct Config {
     algo: AlgoKind,
@@ -20,7 +20,10 @@ impl Config {
             "BFS" => algo = AlgoKind::BFS,
             "IDA*" => {
                 algo = AlgoKind::IDAStar;
-                // initialize A*
+                print!("Initializing A* for Cube2... ");
+                std::io::Write::flush(&mut std::io::stdout()).ok();
+                astar::initialize();
+                println!("DONE!");
             },
             _ => return Err(format!("No algorithm \"{}\".", &args[1])),
         }
@@ -58,9 +61,7 @@ pub fn run(config: Config) -> Result<Path, String> {
                 }
                 return false;
             },
-            |_node| {
-                return 0;
-            }
+            astar::estimate
         ),
     }
 }
