@@ -1,3 +1,6 @@
+/* #![feature(test)]
+extern crate test; */
+
 mod model;
 use model::*;
 
@@ -65,3 +68,20 @@ pub fn run(config: Config) -> Result<Path, String> {
         ),
     }
 }
+
+/* #[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[bench]
+    fn santa_bench(b: &mut test::Bencher) {
+        // astar::initialize();
+        b.iter(|| {
+            let config = Config {
+                algo: AlgoKind::BFS,
+                initial_node: Cube2::new([0,3,6,9,15,12]),
+            };
+            test::black_box(run(config))
+        })
+    }
+} */

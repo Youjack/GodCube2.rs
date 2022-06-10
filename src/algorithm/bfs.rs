@@ -51,7 +51,7 @@ where
                 if prune(edge_idx, &bfs_node.parent_edge) { continue; }
                 
                 // get the new node
-                let new_bfs_node = Box::new(
+                next_level.push(
                     BFSNode {
                         parent_edge: Some(Rc::new(
                             BFSEdge {
@@ -62,6 +62,7 @@ where
                         node: bfs_node.node.go_along(edge_idx),
                     }
                 );
+                let new_bfs_node = next_level.last().unwrap();
                 
                 // compare the new node to nodes in the opposite level
                 for opp_bfs_node in opp_level.iter() {
@@ -98,9 +99,6 @@ where
                         }
                     }
                 }
-                
-                // put the new node in the next level
-                next_level.push(*new_bfs_node);
             }
         }
         // swap pointers of levels
