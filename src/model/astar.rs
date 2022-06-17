@@ -2,8 +2,6 @@ use std::{fs, io::{self, Read, Write}};
 
 use super::*;
 
-const CUBE2_MAX_STATE: usize = 21;
-
 static mut ASTAR_DATA: Vec<u8> = vec![];
 const ASTAR_DATA_LEN: usize = 21*21*21*21*21*21;
 const ASTAR_DATA_FILENAME: &str = "cube2.astar_data";

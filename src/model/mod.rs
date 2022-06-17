@@ -13,8 +13,9 @@ pub const CUBE2_STATE_LEN: usize = 6;
 pub type Cube2State = [u8; CUBE2_STATE_LEN];
 /// Cube2 will be moved and cannot be copied!
 pub struct Cube2 { state: Cube2State }
+pub const CUBE2_MAX_STATE: usize = 21;
 pub const SOLVED_CUBE2_STATE: Cube2State = [0,3,6,9,12,15];
-const CUBE2_TRANS_RULE: [[u8;9];21] = [
+const CUBE2_TRANS_RULE: [[u8;CUBE2_TRANS_NUM];CUBE2_MAX_STATE] = [
     [ 12,  3, 10, 15,  6,  4, 18,  9,  7 ],
     [ 13,  4, 11, 16,  7,  5, 19, 10,  8 ],
     [ 14,  5,  9, 17,  8,  3, 20, 11,  6 ],
